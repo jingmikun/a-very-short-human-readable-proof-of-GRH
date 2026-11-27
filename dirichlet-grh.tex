@@ -1,0 +1,1180 @@
+\documentclass[11pt,reqno]{amsart}
+\usepackage[a4paper,textwidth=6.2in,vmargin=0.92in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[hidelinks]{hyperref}
+\allowdisplaybreaks[1]
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\numberwithin{equation}{section}
+
+\newcommand{\CC}{\mathbb C}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\res}{\operatorname{Res}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\rd}{\operatorname{rd}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\htle}[2]{\operatorname{ht}\bigl(#1\bigr)\le #2}
+\newcommand{\HS}{\mathrm{HS}}
+\newcommand{\of}{\mathcal O}
+
+\title[Dirichlet zeros and theta-lift volumes]{The Dirichlet Riemann hypothesis via theta-lift covolumes}
+\subjclass[2020]{Primary 11M26. Secondary 11F27, 11R42.}
+\keywords{Dirichlet \(L\)-functions, theta lifts, covolumes, quadratic twists}
+\hypersetup{pdftitle={The Dirichlet Riemann hypothesis via theta-lift covolumes}}
+
+\begin{document}
+
+\begin{abstract}
+We present a proof of the Riemann hypothesis for Dirichlet
+\(L\)-functions by comparing two estimates for the squared covolume
+of a family of iterated theta lifts. Short integral forms and a
+second moment give a family spanning almost all of the source.
+For the lower bound, an auxiliary twist is chosen at each finite
+place and the product formula is applied with a common untwisted
+determinant. We use the arithmetic estimates of Chojecki for the
+theta-lift construction of Alp\"oge. Cancellation of the common term
+gives a one-sided estimate for a smoothed prime sum, from which
+nonvanishing follows by quadratic twisting and Landau's argument.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{theorem}\label{thm:grh}
+For every Dirichlet character \(\chi\), the function \(L(s,\chi)\)
+is nonzero for \(\re s>1/2\), with the pole at \(s=1\) for a
+principal character excepted. Every zero in \(0<\re s<1\)
+has real part \(1/2\).
+\end{theorem}
+
+For a prime \(d\equiv7\bmod 8\), let \(\chi_d=(\,\cdot\,/d)\) and put
+\(\Lambda_d(n)=\Lambda(n)(1-\chi_d(n))\), where \(\Lambda\) is the von
+Mangoldt function. For \((q,d)=1\), define \(R_{q,d}\) by
+\begin{equation}\label{eq:intro-remainder}
+ \sum_{\substack{n\le x\\ n\equiv1\bmod q}}\Lambda_d(n)
+       \left(\frac1n-\frac1x\right)
+ = \frac{\log x}{\varphi(q)}+C_{q,d}+R_{q,d}(x).
+\end{equation}
+The constant \(C_{q,d}\) is characterized by \(R_{q,d}(x)\to0\).
+
+\begin{theorem}\label{thm:prime}
+Let \(q\) be a positive multiple of \(18480\), and let \(d\) be a
+prime congruent to \(q/2-1\bmod q\). For every \(\epsilon>0\)
+there is a constant \(A_{q,d,\epsilon}\) such that
+\begin{equation}\label{eq:prime}
+ R_{q,d}(x)\le A_{q,d,\epsilon} x^{-1/2+\epsilon}
+ \qquad (x\ge2).
+\end{equation}
+\end{theorem}
+
+The proof uses Alp\"oge's iterated theta-lift construction
+\cite{alpoge} with the arithmetic theorems in Chojecki's
+exposition \cite{chojecki}. The chain has length \(m\asymp\sqrt{x}\).
+Local divisibility bounds the integral index of a family of short
+forms. A second moment selects a small collection of translates
+which span enough directions for a determinant comparison.
+In the opposite direction, a product of critical Hecke values
+controls the loss at each stage of the chain. The two bounds contain
+the same contribution from the weights. Subtracting it leaves the
+prime-sum remainder multiplied by \(m\).
+
+We give the analytic implication in \S\ref{sec:analytic}, the data
+and determinant comparison in \S\S\ref{sec:data}--\ref{sec:gram},
+and the three estimates in \S\S\ref{sec:short}--\ref{sec:long}.
+The last section combines them with the prime number theorem at the
+larger of the two cutoffs.
+
+
+\section{From a one-sided estimate to nonvanishing}\label{sec:analytic}
+
+\subsection{The Mellin transform of the remainder}
+
+Fix \(q\ge1\) and a prime \(d\equiv7\bmod 8\) with \((q,d)=1\).
+Write \(A_{q,d}(u)=\sum_{n\le u,\ n\equiv1\bmod q}\Lambda_d(n)\) and
+\(\mu_q=1/\varphi(q)\). Partial summation gives
+\begin{equation}\label{eq:partial}
+ \sum_{\substack{n\le x\\ n\equiv1\bmod q}}\Lambda_d(n)
+       (n^{-1}-x^{-1})
+ = \int_1^x A_{q,d}(u)\,\frac{du}{u^2}.
+\end{equation}
+Orthogonality of characters and the prime number theorem in arithmetic
+progressions give, for every \(B>0\),
+\[
+ A_{q,d}(u)=\mu_q u+O_{q,d,B}\bigl(u(\log u)^{-B-1}\bigr)\qquad(u\ge2).
+\]
+Indeed the characters in the two sums are \(\psi\bmod q\) and
+\(\psi\chi_d\bmod qd\). The second family has no principal member, since
+the restriction to the \(d\)-factor is nontrivial. We use the prime number
+theorem in the form of \cite[Ch.~11]{mv}. It follows that
+\begin{equation}\label{eq:pnt-tail}
+ C_{q,d}=\int_1^\infty\bigl(A_{q,d}(u)-\mu_q u\bigr)\frac{du}{u^2},
+ \qquad R_{q,d}(x)\ll_{q,d,B}(\log x)^{-B}\quad\text{in absolute value}.
+\end{equation}
+
+For \(\re s>1\) define
+\[
+ F_{q,d}(s)
+ =\frac{1}{\varphi(q)}\sum_{\psi\bmod q}
+     \left(-\frac{L'}{L}(s,\psi)+\frac{L'}{L}(s,\psi\chi_d)\right).
+\]
+By the Euler products it is the Dirichlet series with coefficients
+\(\mathbf 1_{n\equiv1\bmod q}\Lambda_d(n)\). For \(\re s>1\), integration
+of the weight on \([n,\infty)\) gives
+\(\int_n^\infty(n^{-1}-x^{-1})x^{-s}\,dx=n^{-s}/(s(s-1))\).
+Consequently
+\begin{equation}\label{eq:mellin}
+ M_{q,d}(s):=\int_1^\infty R_{q,d}(x)x^{-s}\,dx
+ = \frac{F_{q,d}(s)}{s(s-1)}
+       -\frac{\mu_q}{(s-1)^2}-\frac{C_{q,d}}{s-1}.
+\end{equation}
+All the interchanges of sum and integral here are absolute. The pole
+of \(F_{q,d}\) at \(1\) has residue \(\mu_q\). If \(f_0\) denotes its
+constant Laurent coefficient there, the constant in
+\eqref{eq:pnt-tail} is \(C_{q,d}=f_0-\mu_q\). This follows by multiplying
+\eqref{eq:mellin} by \(s-1\) and letting \(s\downarrow1\), since
+\eqref{eq:pnt-tail} makes \(M_{q,d}(s)\) bounded on approach from the
+right. In particular,
+\begin{equation}\label{eq:c1}
+ C_{1,d}=-1-\gamma+\frac{L'}{L}(1,\chi_d),
+\end{equation}
+where \(\gamma\) is Euler's constant.
+
+In the half-plane \(\re s>0\), the right side of \eqref{eq:mellin} is
+meromorphic, regular at \(1\), and its only possible poles are simple.
+Let \(m(\rho,\chi)\) denote the zero multiplicity of \(L(s,\chi)\) at
+\(\rho\ne1\), with value \(0\) at a regular nonzero point. For
+\(\re\rho>0\), \(\rho\ne1\), we have
+\begin{equation}\label{eq:residue}
+ \res_{s=\rho}M_{q,d}(s)
+ =\frac{\displaystyle\sum_{\psi\bmod q}
+                \bigl(m(\rho,\psi)-m(\rho,\psi\chi_d)\bigr)}
+        {\varphi(q)\rho(1-\rho)}.
+\end{equation}
+The sign in this expression will be used at real \(\rho\).
+
+\subsection{Selection of a quadratic twist}
+
+\begin{lemma}\label{lem:twists}
+Let \(8\mid q\) and let \(d_0\bmod q\) be a reduced residue class with
+\(d_0\equiv 7\bmod 8\). Given \(1/2<\beta<1\) and \(H\ge0\), there is a
+prime \(d\equiv d_0\bmod q\) such that all \(L(s,\psi\chi_d)\), with
+\(\psi\bmod q\), are nonzero in \(\re s\ge\beta,\ |\im s|\le H\).
+\end{lemma}
+
+\begin{proof}
+We give a smoothed mean-square argument. For \(j\in\{0,1\}\) let
+\(w_j(v)=v^j e^{-\pi v^2}\). For \(|a_n|\le1\) set
+\[
+ \vartheta_{a,j}(u)=u^{1/2}\sum_{n\ge1}a_n w_j(nu),\qquad
+ \gamma_j(s)=\tfrac12\pi^{-(s+j)/2}\Gamma((s+j)/2).
+\]
+Take \(X\ge2\), put \(T=(qX)^{1/2}\), and consider a nonprincipal
+primitive character \(\chi\) of conductor \(Q\le T^2\) and parity \(j\).
+Define
+\[
+ \begin{split}
+ J(\chi)&=\int_{1/T}^\infty
+    \bigl(|\vartheta_{\chi,j}(u)|+|\vartheta_{\mu\chi,j}(u)|\bigr)\frac{du}{u},\\
+ B_\chi(s)&=\int_{1/T}^\infty
+                \vartheta_{\mu\chi,j}(u)u^{s-1/2}\frac{du}{u},
+ \end{split}
+\]
+where \(\mu\) is the M\"obius function. The theta transformation for
+primitive characters gives
+\(\abs{\vartheta_{\chi,j}(u)}
+ =\abs{\vartheta_{\bar\chi,j}(1/(Qu))}\).
+The inversion \(u\mapsto1/(Qu)\) and
+\(\abs{\vartheta_{\chi,j}}=\abs{\vartheta_{\bar\chi,j}}\) therefore give
+\[
+ \int_0^\infty |\vartheta_{\chi,j}(u)|\,\frac{du}{u}
+ =2\int_{Q^{-1/2}}^\infty|\vartheta_{\chi,j}(u)|\,\frac{du}{u}
+ \le 2J(\chi).
+\]
+Mellin transformation gives
+\(\int_0^\infty \vartheta_{\chi,j}(u)u^{s-1/2}du/u=\gamma_j(s)L(s,\chi)\).
+The identity holds first by termwise integration for \(\re s>1\) and
+extends by the theta transformation. The analogous integral for
+\(\mu\chi\) equals \(\gamma_j(s)/L(s,\chi)\) for \(\re s>1\).
+Since \(\vartheta_{a,j}(u)\ll u^{-1/2}\) for \(0<u\le1\), omitting
+\((0,1/T)\) in the latter integral costs \(O(T^{-1})\) on \(\re s=2\).
+Thus the function
+\[
+ G_\chi(s)=\gamma_j(s)L(s,\chi)B_\chi(s)-\gamma_j(s)^2
+\]
+is \(O(J(\chi)^2+1)\) on \(\re s=1/2\) and \(O(T^{-1})\) on
+\(\re s=2\), with absolute implied constants. Its boundedness in the
+closed strip, for fixed \(\chi,T\), follows from absolute integrability of
+the Mellin kernels on both boundary lines.
+
+Take \(0<\kappa<(\beta-1/2)/3\). If \(J(\chi)\le T^\kappa\), the
+three-lines theorem bounds \(G_\chi(s)\) uniformly for
+\(\beta\le\re s\le1\) by
+\[
+ O\bigl(T^{2\kappa(1-\theta)-\theta}\bigr),
+ \qquad \theta=\frac{\re s-1/2}{3/2}.
+\]
+This tends to \(0\) as \(X\to\infty\). At a zero in
+\(\beta\le\re s\le1,\ |\im s|\le H\), however,
+\(\abs{G_\chi(s)}=\abs{\gamma_j(s)}^2\) is bounded below by a positive
+constant depending only on \(\beta,H\). For all sufficiently large \(X\)
+a character with a zero in this rectangle must satisfy \(J(\chi)>T^\kappa\).
+
+We next bound \(J\) on average. Write \(n_{\rm odd}\) for the odd part
+of \(n\) and, for \(v\ge1\), use the coefficient
+\[
+ a_n(v)=\alpha_n\left(\frac{-v}{n_{\rm odd}}\right),\qquad
+ |\alpha_n|\le1,
+\]
+with the Jacobi symbol, including its value \(1\) at denominator \(1\).
+For every \(\eta>0\) and \(1/T\le u\le1\),
+\begin{equation}\label{eq:quad-second}
+ \sum_{1\le v\le X}|\vartheta_{a(v),j}(u)|^2
+   \ll_\eta X\log(2/u)+u^{-2-\eta}.
+\end{equation}
+To see this, expand the square. When \((nn')_{\rm odd}\) is a square,
+bound the sum over \(v\) by \(X\). The number of these pairs with
+\(n\le U,\ n'\le V\) is
+\(\ll (UV)^{1/2}\log(2\min(U,V))\) for \(U,V\ge1\). Write
+\(n=2^e h a^2,\ n'=2^{e'}h (a')^2\) with \(h\) odd and squarefree and
+\(a,a'\) odd. Summing the bounds
+\((UV)^{1/2}2^{-(e+e')/2}/h\) proves the count. Applying the count on
+dyadic enlargements of \([1,1/u]^2\) and using the rapid decay of \(w_j\)
+gives the first term of \eqref{eq:quad-second}.
+For the remaining pairs, the character of \(v\) is nonprincipal.
+P\'olya--Vinogradov, with inclusion--exclusion for an imprimitive modulus,
+bounds its sum over \(v\) by \(O_\eta((nn')^{1/2+\eta/2})\).
+Here a character of modulus \(M\) induced from conductor \(F\) costs at
+most \(O(\tau(M)\sqrt{F}\log(2F))\), which suffices.
+Since
+\(\sum_n n^{1/2+\eta/2}|w_j(nu)|\ll_\eta u^{-3/2-\eta/2}\),
+the factor \(u\) in the square of \(\vartheta\) gives the second term.
+The argument uses only the usual character sum estimate
+\cite[Ch.~9]{mv}. For \(u\ge1\), the corresponding sum of squares is
+\(O(X e^{-c u^2})\) for an absolute \(c>0\).
+
+Fix \(\psi\bmod q\) and let \(\psi^*\) be the primitive character inducing
+it. For the primes \(d\) in the given class, \(\psi^*\chi_d\) is primitive
+of conductor \(d\,\operatorname{cond}(\psi^*)\le qX\). The parity is fixed.
+Quadratic reciprocity and \(d\equiv7\bmod8\) give
+\((n/d)=(-d/n_{\rm odd})\). We apply \eqref{eq:quad-second} with
+\(\alpha_n=\psi^*(n)\) and \(\alpha_n=\mu(n)\psi^*(n)\).
+Cauchy--Schwarz, followed by integration in \(u\), gives
+\[
+ \sum_{\substack{d\le X\ {\rm prime}\\d\equiv d_0\bmod q}}
+                     J(\psi^*\chi_d)\ll_{q,\eta} T^{2+\eta}
+ \qquad(\eta>0).
+\]
+For example, apply \eqref{eq:quad-second} with exponent \(\eta\) on
+\([1/T,1]\), where \(X\le T^2\) and \(u^{-2-\eta}\le T^{2+\eta}\),
+and absorb \(\log T\) after Cauchy--Schwarz. The range \(u\ge1\) costs
+\(O(X)\). With \(\eta=\kappa/2\), the number of excluded primes is
+\(O_{q,\beta,H}(T^{2-\kappa/2})\), after summing over the finitely many
+\(\psi\). The prime number theorem in the fixed progression provides
+\(\asymp_q X/\log X\) primes, more than the excluded count. Finally the
+Euler factors removed in passing from \(\psi^*\chi_d\) to
+\(\psi\chi_d\) are nonzero in \(\re s>0\). This proves the lemma.
+\end{proof}
+
+\subsection{Positivity and the transform}
+
+\begin{lemma}[Landau's argument]\label{lem:landau}
+Let \(g\ge0\) be locally integrable on \([X,\infty)\), where \(X\ge1\),
+and suppose \(\int_X^\infty g(x)x^{-s}\,dx\) converges for
+\(\re s\) sufficiently large. Suppose it continues meromorphically
+to \(\re s>\beta\) with at most simple poles and with nonpositive
+residue at each possible real pole there. Then it is holomorphic in
+\(\re s>\beta\).
+\end{lemma}
+
+\begin{proof}
+Let \(a\) be the abscissa of convergence. If \(a>\beta\), the transform has
+a singularity at \(a\). Indeed, if it were regular there, its Taylor
+series at a real \(s_0>a\) sufficiently close to \(a\) would converge at
+some \(s_0-h<a\). The series at that point has nonnegative terms
+\(\int_X^\infty g(x)x^{-s_0}(h\log x)^j\,dx/j!\). Monotone convergence
+would imply convergence of the integral at \(s_0-h\). The singularity
+must therefore be a simple pole. Its nonzero residue must be positive,
+since the integral is nonnegative as \(s\) approaches \(a\) from the
+right. This contradicts the residue condition. Thus \(a\le\beta\),
+and absolute convergence gives holomorphy in the required half-plane.
+\end{proof}
+
+\begin{proposition}\label{prop:criterion}
+With \(q,d_0,\beta\) as in Lemma~\ref{lem:twists}, suppose that for each
+prime \(d\equiv d_0\bmod q\) there is an eventual bound
+\(R_{q,d}(x)\le A_{q,d,\beta}x^{\beta-1}\).
+Then every \(L(s,\psi)\), \(\psi\bmod q\), is nonzero in
+\(\re s>\beta\), with the pole at \(1\) excepted.
+\end{proposition}
+
+\begin{proof}
+Take \(\rho\) with \(\beta<\re\rho<1\), and use Lemma~\ref{lem:twists}
+with \(H=|\im\rho|\) to fix \(d\). For this \(d\) some \(B>0\) and \(X\)
+make \(g(x)=B x^{\beta-1}-R_{q,d}(x)\) nonnegative for \(x\ge X\).
+Its transform equals
+\[
+ \frac{B X^{\beta-s}}{s-\beta}-M_{q,d}(s)
+       +\int_1^X R_{q,d}(x)x^{-s}\,dx .
+\]
+At a real \(s\in(\beta,1)\), the numerator in \eqref{eq:residue} is
+a sum of untwisted multiplicities and the denominator is positive.
+The residue of the transform of \(g\) is therefore nonpositive.
+There are no possible poles on the real axis at or beyond \(1\).
+Lemma~\ref{lem:landau} makes \(M_{q,d}\) regular at \(\rho\).
+By \eqref{eq:residue} and the choice of \(d\), the sum of untwisted
+multiplicities at \(\rho\) is \(0\), so every summand is \(0\).
+The classical nonvanishing theorem on \(\re s=1\) and the Euler product
+for \(\re s>1\) give the rest of the assertion.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:grh} from Theorem~\ref{thm:prime}]
+For a character modulo \(q'\), use \(q=18480q'\) and \(d_0=q/2-1\).
+Then \(d_0\) is coprime to \(q\) and \(d_0\equiv7\bmod 8\).
+For every \(1/2<\beta<1\), Theorem~\ref{thm:prime} with
+\(\epsilon=\beta-1/2\) gives the bound in
+Proposition~\ref{prop:criterion}.
+Inducing a character to modulus \(q\) only removes Euler factors
+\(1-\chi(p)p^{-s}\), which are nonzero for \(\re s>0\).
+Thus every \(L(s,\chi)\) is nonzero in \(\re s>1/2\), apart from
+the stated pole. The primitive functional equation takes a zero in
+the open strip at \(s\) to one at \(1-s\) for the dual character.
+The gamma factors are regular and nonzero there. The finite Euler
+factors give the claim for imprimitive characters as well.
+\end{proof}
+
+
+
+
+\section{The two cutoffs and the automorphic data}\label{sec:data}
+
+Fix \(q,d\) as in Theorem~\ref{thm:prime} and \(0<\delta<1/100\).
+All asymptotic statements below are for \(x\to\infty\) with \(q,d,\delta\)
+fixed. We take
+\[
+ \log b=x^\delta,\qquad \log y=x^{\delta/6},\qquad
+ \sqrt{x}\le m<2\sqrt{x},\qquad x^5\le r<3x^5,
+\]
+where \(m\) is a power of two and \(r\) a power of three. Write
+\(k=r+1-m\), \(t=5r\), and set
+\[
+ s_0=22\log_2 m,\qquad c_0=\lfloor\log_3 s_0\rfloor+5,\qquad
+ N_1=q\,2^{s_0}3^{c_0},\qquad
+ E=\QQ(\sqrt{-d},\mu_{N_1}),\quad F=E^+.
+\]
+Because \(d\nmid N_1\), the quadratic field \(\QQ(\sqrt{-d})\) is
+disjoint from \(\QQ(\mu_{N_1})\). Fixing the embedding of the quadratic
+field identifies the complex places \(\Phi\) of \(E\) with
+\((\ZZ/N_1\ZZ)^\times\). Write \(f=|\Phi|=[F:\QQ]\).
+Let \(\mathcal T\) be the kernel of reduction to
+\((\ZZ/q\ZZ)^\times\), of size \(T\), so \(f=\varphi(q)T\).
+In the construction of \cite[Proposition~3.4]{chojecki} there is a set
+\(\mathcal S\subset-\mathcal T\) of size \(S\) with \(T/S\le\log b\).
+We take that choice of \(\mathcal S\), and take \(g=g_0g_1\) with
+the two auxiliary split primes \(g_i\in[b^{10},b^{11}]\) from the
+same proposition.
+
+For \(z>0\) put \(\lceil z\rceil_{N_1}=N_1\lceil z/N_1\rceil\).
+Use the order \(a=\lceil xb\rceil_{N_1}\), the nominal weights
+\(\kappa_\tau=a/x\) for \(\tau\in\mathcal S\) and
+\(\kappa_\tau=a/y\) otherwise, and the integral weights
+\[
+ w_j(\tau)=\lceil\kappa_\tau\rceil_{N_1}+(2j+1)r^8
+ \qquad (0\le j\le m).
+\]
+Let \(w=f^{-1}\sum_{\tau\in\Phi}\log\kappa_\tau\) and
+\(G=\log(g\,\rd(E)/(2\pi))\), where \(\rd(E)\) is the root
+discriminant. The split level prime \(N\) of
+\cite[Lemma~3.5]{chojecki} is chosen with \(\log N\) between
+\(\lambda=m(w+G)-G-\tfrac{15}{2}\log b\) and
+\(\lambda+\sqrt{\log b}\). In particular \(N\ge b^m\).
+Fix the level generator \(\pi_N\) with \(\pi_N\overline{\pi_N}=N\)
+used in that construction.
+
+\subsection{The two-cutoff identity}
+
+For \(\nu\) prime to \(N_1\), let \([-\nu]\in\Phi\) be the
+residue class of \(-\nu\). If \((\nu,N_1)>1\) and
+\(\Lambda(\nu)\ne0\), then \(\nu\) is a power of a prime dividing \(q\).
+Every such prime splits in \(\QQ(\sqrt{-d})\), since
+\(-d\equiv1\bmod p\) for odd \(p\mid q\) and \(-d\equiv1\bmod8\).
+Thus \(\Lambda_d(\nu)=0\) in the nonunit case.
+We can consequently assign any value to \(\kappa_{[-\nu]\tau}\)
+there.
+
+With \(v_+=\max(v,0)\), put
+\[
+ J_\tau=\sum_{\nu\le a}\Lambda_d(\nu)
+             \left(\frac{a}{\nu}-\kappa_{[-\nu]\tau}\right)_+,
+ \qquad
+ \mathcal R=\sum_{\tau\in\mathcal T}J_\tau-
+             Ta(\log a+C_{1,d}-w).
+\]
+For a unit \(\nu\), the number of \(\tau\in\mathcal T\) for which
+\([-\nu]\tau\in\mathcal S\) is \(S\) when \(\nu\equiv1\bmod q\),
+and zero otherwise. Indeed, multiplication by \([-\nu]\) maps
+\(\mathcal T\) bijectively to the fibre over \(-\nu\bmod q\).
+If \(P_{q,d}(z)\) denotes the prime sum on the left of
+\eqref{eq:intro-remainder}, this gives
+\[
+ \sum_{\tau\in\mathcal T}J_\tau
+ =aS\bigl(P_{q,d}(x)-P_{q,d}(y)\bigr)+aT P_{1,d}(y).
+\]
+Here \(a\ge y\), and taking the positive part imposes the relevant
+cutoff. Substituting \eqref{eq:intro-remainder} and using
+\(w=\log a-\frac{S}{f}\log x-(1-\frac{S}{f})\log y\) gives
+\begin{equation}\label{eq:two-weights}
+ \mathcal R=aS\bigl(R_{q,d}(x)-R_{q,d}(y)\bigr)+aT R_{1,d}(y).
+\end{equation}
+
+\subsection{The common leading term}
+
+Set
+\[
+ \ell_d=\gamma-\frac{L'}{L}(1,\chi_d),\qquad
+ \Omega=\frac{2\pi e^{\ell_d}}{\rd(E)},\qquad
+ B=fa(\log b)^3,\qquad L=B\log b.
+\]
+The term shared by the two volume estimates is \(H=mku\), where
+\begin{equation}\label{eq:direction}
+ u=\sum_{\tau\in\Phi}\left[
+  \log\bigl(w_0(\tau)!\bigr)-w_0(\tau)\log(\Omega/g)
+  -\sum_{\nu\le a}\Lambda_d(\nu)
+          \left(\frac{\kappa_\tau}{\nu}-\kappa_{[-\nu]\tau}\right)_+
+ \right].
+\end{equation}
+This is the direction cost with the normalization
+of \cite[{\rm(3.8)}]{chojecki}.
+We will only need the crude absolute bound
+\begin{equation}\label{eq:coarse-main}
+ |H|+m|\mathcal R|\le b^2x^{99}.
+\end{equation}
+Indeed \(N_1=O_q(x^{11}\log x)\), \(xb\le a\le 2xb\) for
+large \(x\), and \(w_0(\tau),\kappa_\tau=O(b)\) uniformly in
+\(\tau\). Also \(\log\rd(E)=O_{q,d}(\log x)\) by the cyclotomic
+discriminant bound and the inclusion \(E\subset\QQ(\mu_{dN_1})\).
+The factorial and period terms in \eqref{eq:direction} are
+\(O_{q,d}(b\log a)\) per place, and the prime sum is bounded by
+\[
+ 2\kappa_\tau\sum_{\nu\le a}\frac{\log\nu}{\nu}
+       \ll b(1+\log a)^2 .
+\]
+As \(f\le N_1\), these estimates give \(|H|=O_{q,d,\delta}(bx^{21})\).
+The remainders in \eqref{eq:two-weights} are bounded by
+\eqref{eq:pnt-tail}, so \(m|\mathcal R|=O_{q,d,\delta}(maT)\).
+Both bounds imply \eqref{eq:coarse-main} for large \(x\).
+
+\subsection{Spaces, translates, and lifts}
+
+We use the unitary spaces, finite levels, and theta data of
+\cite[\S\S4--6 and Theorem~20.16]{chojecki} over \(E/F\).
+Let \(X_j\) be the definite spaces of ranks \(k+j(t+1)\), and
+\(Y_j\) the Hermitian spaces of ranks \(r+jt\) in the chain,
+with \(Y_m\) definite. Write \(\mathcal V\) for the space of
+algebraic modular forms on \(U(X_0)\) with the indicated Schur
+coefficients. At the marked places over \(g_0,g_1\) its level is
+principal, and at each \(w\mid\pi_N\) it fixes the last row modulo
+\(w\). Thus a form is a right-level-invariant function on
+\(U(X_0)(\mathbb A_{F,f})\), transforming under \(U(X_0)(F)\) by
+the coefficient representation. Its values on the finite double
+quotient satisfy the corresponding stabilizer conditions.
+
+Let \(\Gamma\) be the product of the groups
+\(\operatorname{GL}_r(k_w)\) at the marked split places over
+\(g_0,g_1\), and let \(\rho\) be its unitary action by finite
+translation on the principal-level cusp forms \(\mathcal P\)
+on \(U(Y_0)\) of the prescribed discrete-series type. Write \(e_0\)
+for the central projector in the construction and
+\(\mathcal W=e_0\mathcal P\). The projector retains the finite
+types with the specified squarefree Green labels~\cite{green} and a
+cuspidal label over each of \(g_0,g_1\).
+The dimensions of the full column space and the projected row
+space are denoted by \(C=\dim\mathcal V\) and \(D=\dim\mathcal W\),
+respectively. In particular \(C>0\) by the free-level class
+description, since the coefficient representation is nonzero.
+
+At \(w\mid\pi_N\), let \(z_w\) denote translation by a scalar
+lifting a generator of \(k_w^\times\). Put
+\begin{equation}\label{eq:ramified}
+ E_N=\prod_{w\mid\pi_N}(1-z_w),\qquad
+ \widehat{\mathcal V}=E_N\mathcal V.
+\end{equation}
+Let \(P:\mathcal V\to\mathcal P\) be the Poincar\'e series map
+formed using the Bessel datum at infinity and the prescribed
+finite column data, in the normalization of
+\cite[\S11]{chojecki}. The row maps before rational rescaling
+are
+\begin{equation}\label{eq:row-maps}
+ A_s=c_*e_0\rho(s)P\big|_{\widehat{\mathcal V}},
+ \qquad s\in\Gamma,
+\end{equation}
+where \(c_*\ne0\) includes the common seesaw scalar and the
+factor \(|\Gamma|\). These maps use the same datum for the
+short-form and second-moment theorems, as specified in
+\cite[Theorem~20.16]{chojecki}.
+
+The twists \(\xi\) are the weight-zero tame characters in this
+construction, whose first \(m\) powers are nontrivial at every
+place of their support. The support is disjoint from its conjugate,
+and its conductor norm \(q_\xi\) is prime to \(gN\).
+The trivial twist has \(q_1=1\). Use the composite of the \(m\)
+theta lifts from \(U(Y_0)\) to \(U(Y_m)\), with the prescribed
+splittings and powers of \(\xi\), to obtain an injection
+\[
+ \Theta_\xi:\mathcal W\longrightarrow\mathcal H_\xi .
+\]
+Here \(\mathcal H_\xi\) is the terminal space of definite forms
+with its squared class-sum norm. The injectivity follows from
+the triangle identities and the inclusion-datum lifts in
+\cite[\S13.8]{chojecki}.
+At a finite embedding, the integral forms have values in the
+transported integral Weyl lattices at each finite adelic point.
+The field, the spaces, the levels, the integral structures, and
+the lifts from this construction are fixed throughout
+\S\S\ref{sec:gram}--\ref{sec:long}.
+
+
+
+
+\section{Integral indices and determinant ratios}\label{sec:gram}
+
+For each rational prime \(p\) we use the field isomorphisms
+\(\iota:\CC\to\overline{\QQ}_p\), with
+\(\abs{p}_\iota=p^{-1}\). Write \(\of_\iota\) for the inverse
+image of the valuation ring and \(\bar\iota=\iota\circ c\), where
+\(c\) denotes complex conjugation. These isomorphisms are
+abstract field maps. Every embedding of a number field into
+\(\overline{\QQ}_p\) extends to such a map.
+
+For a twist with \(p\nmid q_\xi\), let
+\(\mathcal I_{\xi,\iota}\subset\mathcal H_\xi\) be its integral
+module. We use the class-sum pairing with conjugate gauges,
+\begin{equation}\label{eq:int-pairing}
+ \abs{\langle v,w\rangle}_\iota\le1
+ \qquad
+ \bigl(v\in\mathcal I_{\xi,\bar\iota},\
+       w\in\mathcal I_{\xi,\iota}\bigr).
+\end{equation}
+Indeed, the endpoint has free principal level. In class
+representatives integral above \(p\), the pairing uses the
+integral Weyl Gram matrices and is a sum without stabilizer
+denominators. These are the integral realizations of
+\cite[\S6.13, Lemma~8.12, and {\rm(14.3)}]{chojecki}.
+At \(\xi=1\) the fixed Weyl coordinates on the classes give a
+positive definite rational Gram matrix. Write \(v^\sigma\) for
+the vector obtained by applying \(\sigma\in\operatorname{Aut}(\CC)\)
+to these coordinates, and \(\|v\|_\sigma=\|v^\sigma\|\).
+
+\begin{definition}
+A family \(\mathbf v=(v_1,\ldots,v_n)\) of rows has index at
+most \(I\) if there are \(a_p\ge0\) with \(\sum_p a_p\le I\)
+such that, for every \(\iota\mid p\) and \(p\nmid q_\xi\),
+some \(U\in M_n(\of_\iota)\) satisfies
+\[
+ |\det U|_\iota\ge e^{-a_p},\qquad
+ \Theta_\xi\left(\sum_{j=1}^n U_{ij}v_j\right)
+       \in\mathcal I_{\xi,\iota}\quad (1\le i\le n).
+\]
+The numbers \(a_p\) are uniform in \(\xi,\iota\).
+The matrix may depend on both. The squared covolume at
+\(\sigma\) is
+\[
+ \Delta_\sigma(\mathbf v)=
+ \det\left(\left\langle
+       (\Theta_1 v_i)^\sigma,(\Theta_1 v_j)^\sigma
+     \right\rangle\right)_{i,j=1}^n .
+\]
+\end{definition}
+
+\begin{definition}
+For a family \(z=(z_\iota)_\iota\), the bound
+\(\htle{z}{A}\) means that there are \(d_0\in\CC^\times\),
+\(\alpha\in\RR\), and real \(a_p\) with
+\[
+ |\sigma d_0|\le e^\alpha,\qquad
+ |d_0z_\iota|_\iota\le e^{a_p}\quad(\iota\mid p),\qquad
+ \alpha+\sum_{p<Y}a_p\le A
+ \quad\text{for all sufficiently large \(Y\)}.
+\]
+\end{definition}
+
+Bounds add under multiplication, with the product of the
+two witnesses as witness. A local unit at each \(\iota\)
+can be inserted in the family without changing a bound.
+If \(\htle{(1)_\iota}{A}\), then \(A\ge0\).
+Indeed, a nonzero complex number with bounded conjugates
+under all automorphisms of \(\CC\) is algebraic. Otherwise,
+an isomorphism between rational function fields taking it
+to an arbitrarily large transcendental number extends to an
+automorphism of \(\CC\). Apply the rational product formula
+to the norm of \(d_0\) from \(\QQ(d_0)\). The log of the
+ordinary or \(p\)-adic absolute value of the norm, divided
+by \([\QQ(d_0):\QQ]\), is bounded by \(\alpha\) or \(a_p\),
+respectively. For \(Y\) containing all the primes in that norm,
+the product formula gives the assertion.
+
+Choose any Hermitian metric on \(\mathcal W\), the same at
+every twist, and put \(Z_\xi=\det(\Theta_\xi^*\Theta_\xi)>0\).
+Ratios of the \(Z_\xi\) are independent of the metric.
+
+\begin{lemma}\label{lem:gram}
+Let \(\mathbf v\) be an independent family of \(n\) rows
+of index at most \(I\), with \(\Delta_\sigma(\mathbf v)\le e^{V_0}\)
+for all \(\sigma\). Complete it to a basis by \(j=D-n\)
+vectors \(w_a\) with \(\|\Theta_1 w_a\|_\sigma^2\le e^{A_0}\).
+Choose one twist \(\xi_\iota\) for each \(\iota\mid p\) with
+\(p\nmid q_{\xi_\iota}\).
+Suppose there are nonzero \(\gamma_\iota\) such that
+\(\gamma_\iota\Theta_{\xi_\iota}w_a\) belongs to both
+\(\mathcal I_{\xi_\iota,\iota}\) and
+\(\mathcal I_{\xi_\iota,\bar\iota}\) for every \(a\), and
+\(\htle{(|\gamma_\iota|^{-2})_\iota}{G_0}\). Then
+\begin{equation}\label{eq:gram-family}
+ \htle{(Z_{\xi_\iota}/Z_1)_\iota}{V_0+2I+j(A_0+G_0)}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let \(D_\xi\) be the Gram determinant of the images of the
+full basis at \(\xi\). The change of basis gives
+\(D_\xi/D_1=Z_\xi/Z_1\). To bound the finite values at
+\(\iota\), use the index matrices at \(\iota\) and
+\(\bar\iota\), both for the twist \(\xi_\iota\).
+On the completion vectors use the scalar \(\gamma_\iota\).
+By \eqref{eq:int-pairing} the new pairing matrix is integral
+at \(\iota\). Taking its determinant and dividing by the
+two index determinants yields
+\[
+ \bigl|(\overline{\gamma_\iota}\gamma_\iota)^j
+             D_{\xi_\iota}\bigr|_\iota\le e^{2a_p}.
+\]
+
+The rational Gram matrix in the fixed coordinates satisfies
+\(\sigma\langle v,w\rangle=\langle v^{c\sigma c},w^\sigma\rangle\).
+It follows that \(\sigma D_1\) is the Hermitian pairing of
+two exterior products, formed using \(c\sigma c\) and
+\(\sigma\), respectively. For either exterior product the
+squared norm is at most \(e^{V_0+jA_0}\). This follows by
+adjoining the completion vectors one at a time and bounding
+the norm of each orthogonal projection by the full norm.
+Cauchy--Schwarz now gives \(|\sigma D_1|\le e^{V_0+jA_0}\).
+Thus \(D_1\) witnesses the bound \(V_0+jA_0+2I\) for the
+family \(\bigl((\overline{\gamma_\iota}\gamma_\iota)^j
+Z_{\xi_\iota}/Z_1\bigr)_\iota\).
+Multiplying by the inverse scalar family gives
+\eqref{eq:gram-family}.
+\end{proof}
+
+
+
+
+\section{Short forms and their index}\label{sec:short}
+
+Let \(\mathcal M_\iota\subset\mathcal V\) consist of columns
+integral in the transported Weyl lattices at \(\iota\), and put
+\(\mathcal M=\widehat{\mathcal V}\cap\bigcap_\iota\mathcal M_\iota\).
+The quantitative local estimates of
+\cite[Proposition~9.14, {\rm(5.1)--(5.3)}]{chojecki} give
+a set \(\mathcal S_0\subset\mathcal M\) spanning
+\(\widehat{\mathcal V}\), finitely supported nonnegative
+\(g_p,e_p\), and \(h_0\) with
+\begin{equation}\label{eq:short-estimates}
+ \begin{gathered}
+ \sum_p e_p\log p\le B,\qquad h_0\le H-m\mathcal R+B,\\
+ \|\Theta_1 A_s\phi\|_\sigma^2
+   \le \exp\left(h_0+2\sum_p g_p\log p+2B+x^{99}\right)
+       \qquad (s\in\Gamma,\ \phi\in\mathcal S_0).
+ \end{gathered}
+\end{equation}
+The local part of the estimates has the following form. For
+each \(p,\iota\mid p\), and integer \(\beta<g_p-e_p+1\),
+a finite family in \(\mathcal M_\iota\) can be recombined
+over \(\of_\iota\) with determinant of absolute value at least
+\(p^{-e_p C}\) into a submodule \(\mathcal N\) satisfying
+\begin{equation}\label{eq:short-gain}
+  p^{-\beta}\Theta_\xi A_s(\mathcal N\cap\widehat{\mathcal V})
+       \subset\mathcal I_{\xi,\iota}
+       \qquad (s\in\Gamma,\ p\nmid q_\xi).
+\end{equation}
+These estimates use the common seesaw normalization in
+\eqref{eq:row-maps}. The local loss comes from the sublattice
+on which the two halves of the Hecke repair can be combined,
+and from the repair at the level prime \(N\). The factor \(C\)
+in the determinant bound is the full column dimension.
+
+\begin{proposition}\label{prop:short}
+There is a common positive rational \(q_0\), with
+\(B_s=q_0A_s\), such that
+\[
+ \|\Theta_1 B_s\phi\|_\sigma^2\le e^{H-m\mathcal R+L}
+ \qquad(s\in\Gamma,\ \phi\in\mathcal S_0).
+\]
+For any subset \(\mathcal U\subset\Gamma\), a finite family
+in \(\bigcup_{s\in\mathcal U} B_s(\mathcal M)\) has index at
+most \(|\mathcal U|CB\).
+\end{proposition}
+
+\begin{proof}
+Put \(\beta_p=\lceil g_p-e_p\rceil\) and take
+\(q_0=\prod_p p^{-\beta_p}\).
+The bound on \(h_0\) and
+\(\log q_0\le\sum_p(e_p-g_p)\log p\) give
+\[
+ \|\Theta_1 B_s\phi\|_\sigma^2
+   \le \exp\bigl(H-m\mathcal R+5B+x^{99}\bigr)
+   \le e^{H-m\mathcal R+L}.
+\]
+The last inequality uses \(5B+x^{99}\le B\log b\) for large
+\(x\), since \(a\ge xb\).
+
+For each row in the given family choose one preimage in
+\(\mathcal M\), and group the indices according to \(s\).
+At \(\iota\mid p\), apply the local recombination with
+\(\beta_p<g_p-e_p+1\) to the preimages in each group. The
+recombined columns are still in \(\widehat{\mathcal V}\).
+The factor \(q_0p^{\beta_p}\) is a unit of \(\of_\iota\),
+so \eqref{eq:short-gain} gives integral lifts for the
+recombined rows. The block diagonal recombination has
+determinant of absolute value at least \(p^{-|\mathcal U|Ce_p}\).
+The sum of the resulting logarithmic index allowances is
+at most \(|\mathcal U|CB\) by \eqref{eq:short-estimates}.
+\end{proof}
+
+
+
+
+\section{The second moment and spanning}\label{sec:span}
+
+For a subspace \(J\subset\mathcal V\), let \(\Pi_J\) denote its
+orthogonal projector in the column norm used for \(P\).
+The moment and projection estimates of
+\cite[{\rm(11.13), (11.14), (11.18)}]{chojecki} give a common
+normalizing factor \(M_*>0\) with
+\begin{align}
+ D&\le |\Gamma|M_* ,\label{eq:mass-dim}\\
+ \sum_{s\in\Gamma}\|P^*\rho(s)P\|_{\HS}^2
+      &\le (1+9b^{-4})\, C^2/M_* ,\label{eq:sharp-moment}\\
+ \|e_0P\Pi_J\|_{\HS}^2
+      &\ge \dim J-5b^{-4}C .\label{eq:retained-proj}
+\end{align}
+Here \(\|\cdot\|_{\HS}\) is the Hilbert--Schmidt norm.
+The factor \(M_*\) is the product of the real formal degrees
+and the mass of a definite genus of rank \(r\).
+The flag integral estimates and the removal of the open-cell
+restriction in \cite[Propositions~10.11 and~11.11]{chojecki}
+give \eqref{eq:sharp-moment} for the full sum. Its leading
+constant agrees with the one in the dimension bound
+\eqref{eq:mass-dim}. Taking \(J=\mathcal V\) in
+\eqref{eq:retained-proj} gives \(D>0\).
+
+We also have
+\begin{equation}\label{eq:ram-kernel}
+ \dim\ker E_N\le \frac{f}{N-1}C.
+\end{equation}
+For this, a nonidentity power of \(z_w\) moves each level class.
+In fact, a fixed class would yield a lattice automorphism
+congruent to the identity at the marked principal level, which
+is trivial by \cite[Lemma~8.12]{chojecki}. The level at \(w\)
+fixes the last row, so a scalar belongs to it only when its
+reduction is \(1\). Since \(N\) splits completely, the action
+of \(z_w\) has cycles of length \(N-1\). A \(z_w\)-invariant
+form is determined by one value on each cycle, giving
+\(\dim\ker(1-z_w)\le C/(N-1)\). The rank inequality for a
+product of operators and the \(f\) places over \(\pi_N\) give
+\eqref{eq:ram-kernel}.
+
+\begin{proposition}\label{prop:span}
+There is a subset \(\mathcal U\subset\Gamma\) such that
+\[
+ |\mathcal U|C\le5D\log(1+b^2),\qquad
+ \dim\sum_{s\in\mathcal U}B_s(\widehat{\mathcal V})
+       \ge(1-4b^{-2})D.
+\]
+\end{proposition}
+
+\begin{proof}
+For \(s\in\Gamma\) set \(Q_s=e_0\rho(s)P\) on
+\(\mathcal V\). Given a subspace \(F_0\subset\mathcal W\)
+of dimension \(\alpha D\), consider the positive operator
+\[
+ X_*=\frac1{|\Gamma|}\sum_{s\in\Gamma}
+               \rho(s)PP^*\rho(s)^*
+ \qquad \text{on }\mathcal P .
+\]
+Taking the trace of \(X_*^2\) and using the group action gives
+\[
+ \|X_*\|_{\HS}^2
+   =\frac1{|\Gamma|}\sum_{s\in\Gamma}\|P^*\rho(s)P\|_{\HS}^2
+   \le\frac{(1+9b^{-4})C^2}{D}.
+\]
+For some \(s\) the trace
+\(\|\Pi_{F_0}\rho(s)P\|_{\HS}^2\) is at most its average
+\(\tr(\Pi_{F_0}X_*)\). Cauchy--Schwarz bounds this by
+\[
+ C\sqrt{\alpha(1+9b^{-4})}
+       \le C\left(\frac{1+\alpha}{2}+\frac92b^{-4}\right).
+\]
+On \(J=Q_s^{-1}(F_0)\), the operator \(Q_s\) agrees with
+\(\Pi_{F_0}\rho(s)P\). By \eqref{eq:retained-proj}
+and commutation of \(e_0\) with \(\rho(s)\),
+\[
+ \dim J-5b^{-4}C
+ \le\|e_0P\Pi_J\|_{\HS}^2
+ \le\|\Pi_{F_0}\rho(s)P\|_{\HS}^2.
+\]
+For the inverse image under \(Q_sE_N\), the dimension is
+at most \(\dim J+\dim\ker E_N\). Therefore for some \(s\)
+\[
+ \dim (Q_sE_N)^{-1}(F_0)
+       \le C\left(\frac{1+\alpha}{2}+\eta\right),
+ \qquad
+ \eta=b^{-2}.
+\]
+Here \(\frac{19}{2}b^{-4}+f/(N-1)\le\eta\) for large \(x\),
+since \(f=O_q(x^{11}\log x)\) and \(N\ge b^m\).
+The image of \(Q_sE_N\) is exactly \(B_s(\widehat{\mathcal V})\)
+by \eqref{eq:ramified} and \eqref{eq:row-maps}.
+
+Start with \(F_0=0\). Whenever its codimension \(z\) in
+\(\mathcal W\) exceeds \(4\eta D\), choose \(s\) as above
+and add the image of \(Q_sE_N\).
+The increase in dimension is
+\(\Delta\ge C(z/(2D)-\eta)>0\), by the rank of the map to
+\(\mathcal W/F_0\). In particular no index is chosen twice.
+The decrease of \(5D\log(1+z/(\eta D))\) in this step is at least
+\[
+ \frac{5D\Delta}{z+\eta D}\ \ge\
+ \frac{5Cz}{4(z+\eta D)}\ \ge\ C.
+\]
+The process stops with codimension at most \(4\eta D\), and
+the initial value of the logarithm gives the asserted bound
+on \(|\mathcal U|C\).
+\end{proof}
+
+
+
+
+\section{A lower bound for the lifted volume}\label{sec:long}
+
+The determinants at a single stage of the chain can be
+computed on a source space of fixed dimension. The necessary
+relation with the composite lift uses the measures and
+integral gauges from \S\ref{sec:data}. We give the determinant
+argument after stating the comparison and specialization
+results in these normalizations.
+
+\subsection{Comparison at one stage}
+
+For each \(j\), \(1\le j\le m\), take the single lift
+\(u_{j,\xi}\) in the definite comparison
+of \cite[\S13.9]{chojecki}. Its source \(U_j\) has dimension
+\(D\), and \(\xi\) in this notation includes the prescribed
+\(j\)-th power. Write
+\[
+ L_{j,\xi}=\operatorname{im}u_{j,\xi},\qquad
+ \lambda_{j,\xi}=\det(u_{j,\xi}^*u_{j,\xi}).
+\]
+These lifts are injective. By
+\cite[Proposition~14.10]{chojecki} there are maps
+\(g_{j,\xi}\) from a fixed Hermitian space of tables
+\(\mathcal T_j\) to the target of \(u_{j,\xi}\), and a fixed
+surjection \(A_j:\mathcal T_j\to U_j\), with
+\begin{equation}\label{eq:comparison-adj}
+ u_{j,\xi}^*g_{j,\xi}=\gamma_{j,\xi} A_j,\qquad
+ \left|\frac{\gamma_{j,\xi}}{\gamma_{j,1}}\right|^2
+          =\frac{\Gamma_j(\xi)}{\Gamma_j(1)}.
+\end{equation}
+The nonzero scalars \(\gamma_{j,\xi}\) result from three
+complementary-rank theta exchanges. The tables encode
+the values in the small definite block. The separation
+of the good forms by the product periods
+\cite[Proposition~14.21]{chojecki} gives the surjection.
+
+Let \(h_j>0\) be the fixed Weyl hook factor of the small
+block and compress the comparison operator to the lift:
+\[
+ C_{j,\xi}=h_j\,\operatorname{pr}_{L_{j,\xi}}\,
+                   g_{j,\xi}g_{j,\xi}^*\big|_{L_{j,\xi}}.
+\]
+Since \(g_{j,\xi}^*u_{j,\xi}=\overline{\gamma_{j,\xi}}A_j^*\)
+is injective, \(C_{j,\xi}\) is positive definite. On \(U_j\),
+\(u_{j,\xi}^*C_{j,\xi}u_{j,\xi}=h_j|\gamma_{j,\xi}|^2 A_jA_j^*\).
+Taking determinants in orthonormal bases gives
+\[
+ \lambda_{j,\xi}\det C_{j,\xi}
+   = h_j^D|\gamma_{j,\xi}|^{2D}\det(A_jA_j^*).
+\]
+Consequently
+\begin{equation}\label{eq:comparison-ratio}
+ \frac{\lambda_{j,1}}{\lambda_{j,\xi}}
+ = \frac{\det C_{j,\xi}}{\det C_{j,1}}
+        \left(\frac{\Gamma_j(1)}{\Gamma_j(\xi)}\right)^D.
+\end{equation}
+
+\subsection{A choice of twists for all stages}
+
+Put \(B_0=B/(mk)\).
+We use the choice of \(\xi_\iota\), for every \(\iota\mid p\),
+from \cite[Proposition~20.15]{chojecki}. It has \(p\nmid q_{\xi_\iota}\).
+The simultaneous specialization preserves the trace denominators
+for the single lifts and the rank-one tests, and the valuations
+of the required ramified critical values, for all powers through
+\(m\). In particular the same \(\xi_\iota\) works in
+\eqref{eq:comparison-ratio} at every stage.
+
+Let \(e\) denote the finite projector on the target of the
+single lift, and \(T_w\) the spherical Hecke polynomial
+evaluated at the first root of its lift string at a split
+place \(w\) off the levels. The image \(L_{j,\xi}\) is in
+\(\operatorname{im}e\cap\ker T_w\). The unwanted space at \(w\)
+is \(\operatorname{im}e\cap\ker T_w\cap L_{j,\xi}^\perp\).
+We call a form tested if it is orthogonal to this space
+for all such \(w\). The period vanishing in
+\cite[Propositions~14.10 and~19.17]{chojecki} says that
+the forms in \(g_{j,\xi}A_j^*U_j\) are tested.
+
+Fix \(j,\iota\mid p\) and \(\xi=\xi_\iota\), and abbreviate
+\(g=g_{j,\xi}\), \(h=h_j\), \(L'=L_{j,\xi}\).
+The integral gauges in \cite[\S14.5]{chojecki} give tables \(f_a\),
+integral at every embedding above \(p\), with
+\(\langle f_a,\zeta\rangle=h q_a(\zeta)\), where \(q_a\) are the
+integral coordinates of the table. The factor \(h\) clears
+the inverse of its Weyl Gram matrix. The linear functionals
+\(\ell_a(z)=\langle g f_a,z\rangle\) span \((L')^\vee\)
+by injectivity of \(g^*|_{L'}\).
+From their evaluations on any basis choose a \(D\)-row minor
+of maximal \(\iota\)-adic absolute value. In the basis \(z_b\)
+dual to the selected functionals, Cramer's rule gives
+\(|\ell_a(z_b)|_\iota\le1\) for every \(a,b\).
+As \(q_a(hg^*z_b)=\ell_a(z_b)\), the table \(hg^*z_b\) is
+integral at \(\iota\). The corresponding form \(g(hg^*z_b)\)
+is integral there and is tested by \eqref{eq:comparison-adj}.
+In the basis \(z_b\) the entries of \(C_{j,\xi}\) are
+\[
+ \left\langle g f_a,\ \operatorname{pr}_{L'}\,g(hg^*z_b)\right\rangle,
+\]
+with \(a\) ranging over the selected indices. The tested
+projection bound of \cite[Proposition~19.13]{chojecki},
+applied with the trace relations of Proposition~19.7 there,
+gives
+\begin{equation}\label{eq:compressed-finite}
+ |\det C_{j,\xi_\iota}|_\iota\le e^{Dr\beta_{j,p}},
+ \qquad \sum_p\beta_{j,p}\le B_0,\quad\beta_{j,p}\ge0 .
+\end{equation}
+
+At \(\xi=1\) use the rational coordinates for the class-sum
+and table metrics. The comparison norm bound in
+\cite[Proposition~14.10]{chojecki} gives
+\(h_j\|g_{j,1}v\|_\sigma^2\le e^{2rB_0}\|v^\sigma\|^2\).
+For tested vectors the projection to \(L_{j,1}\) contracts
+each conjugated norm. Indeed, at a fixed \(w\) the orthogonal
+complement of the unwanted space is
+\(L_{j,1}+\ker e+\operatorname{im}T_w\).
+The last two summands remain perpendicular to \(L_{j,1}\)
+in the conjugated gauges, by self-adjointness of \(e\)
+and normality of the spherical test there
+\cite[{\rm(14.38)}]{chojecki}.
+If \(C_{j,1}z=\alpha z\) with \(z\ne0\), write
+\(\zeta=g_{j,1}^*z\ne0\) and choose a table \(v\) with
+\(v^{c\sigma c}=\zeta^\sigma\).
+Then
+\[
+ \big|\sigma\langle g_{j,1}v,C_{j,1}z\rangle\big|
+ =|\sigma\alpha|\,\|\zeta^\sigma\|^2
+ \le h_j\|g_{j,1}v\|_{c\sigma c}\|g_{j,1}\zeta\|_\sigma
+ \le e^{2rB_0}\|\zeta^\sigma\|^2 .
+\]
+The first inequality uses Cauchy--Schwarz and the contraction
+on the tested form \(g_{j,1}\zeta\).
+Taking the product over eigenvalues gives
+\(|\sigma\det C_{j,1}|\le e^{2DrB_0}\).
+Together with \eqref{eq:compressed-finite}, this shows that
+\(\det C_{j,1}\) witnesses
+\[
+ \htle{\bigl(\det C_{j,\xi_\iota}/\det C_{j,1}\bigr)_\iota}{3DrB_0}.
+\]
+
+
+For the other factor of \eqref{eq:comparison-ratio}, let
+\(z_0=(k+7m)/2\), \(z_+=m\), \(z_-=m/2\).
+The exact product in \cite[{\rm(14.39)--(14.41)}]{chojecki}
+has one block of critical values of each of these lengths.
+In terms of the positive critical-value ratios \(\rho_{j,i,a}\)
+of that product, it gives
+\begin{equation}\label{eq:hecke-ratio}
+ \frac{\Gamma_j(1)}{\Gamma_j(\xi)}
+ =q_\xi^{-(z_0^2+z_+^2+z_-^2)}
+    \prod_{i\in\{0,+,-\}}\prod_{a=1}^{z_i}\rho_{j,i,a}(\xi)^{-2}.
+\end{equation}
+Here a ratio is the absolute value of the twisted imprimitive
+Hecke value divided by its untwisted counterpart, at \(a\)
+with the character fixed in its block. The block \(-\) uses
+the inverse twist. By
+\cite[Propositions~14.23 and~20.15]{chojecki},
+\(\bigl(\rho_{j,0,a}(\xi_\iota)^{-1}\bigr)_\iota\) has height
+at most \(6B_0-u\) for \(a>7m/2\), and every other inverse
+ratio has height at most \(x^{999}\).
+The first estimate comes from the rank-one period tests.
+For the other factors, the ramified-value interpolation
+includes \(a=1\). The conductor term in
+\eqref{eq:hecke-ratio} is a local unit at the chosen embeddings.
+There are \(k/2\) factors with the first height bound and
+\(5m\) with the second, before squaring. Hence
+\[
+ \htle{\bigl(\Gamma_j(1)/\Gamma_j(\xi_\iota)\bigr)_\iota}
+       {k(6B_0-u)+10mx^{999}}.
+\]
+Combining this with \eqref{eq:comparison-ratio} and
+the height bound for the compressed determinant gives
+\begin{equation}\label{eq:single-lower}
+ \htle{\bigl(\lambda_{j,1}/\lambda_{j,\xi_\iota}\bigr)_\iota}
+       {Dk\bigl((\log b)B_0-u\bigr)}.
+\end{equation}
+We used \(10mx^{999}\le kB_0\) and \(7k+3r\le k\log b\),
+both of which hold for large \(x\).
+
+\subsection{The determinant of the chain}
+
+The chain identity \cite[{\rm(13.55)}]{chojecki} gives positive
+\(\kappa_\xi\) with
+\[
+ Z_\xi=\kappa_\xi^D\prod_{j=1}^m\lambda_{j,\xi},
+ \qquad
+ \htle{\bigl((\kappa_1/\kappa_{\xi_\iota})^2\bigr)_\iota}
+       {2m^2t x^{999}}\le 2L .
+\]
+The equality is for the Gram determinant of the chain with
+the class-sum pairing at its endpoint. Keeping the same scalar
+as in this pairing is necessary in comparing the squared volumes.
+Adding \eqref{eq:single-lower} for all the stages gives
+\(D(L-H)\) for the bound on the height of their product of
+reciprocal determinant ratios. The chain scalar therefore gives
+\begin{equation}\label{eq:chain-lower}
+ \htle{\bigl((Z_1/Z_{\xi_\iota})^2\bigr)_\iota}{2D(2L-H)} .
+\end{equation}
+
+The completion result \cite[Proposition~13.34]{chojecki}
+provides a spanning family of \(\mathcal W\) satisfying the
+completion conditions in Lemma~\ref{lem:gram} with
+\(A_0=2y^2b^2\) and \(G_0=4m^2t x^{999}\).
+It uses one integral scalar for each twist at all embeddings
+prime to the conductor. In passing to \(\mathcal W\), the
+operator \(|\Gamma|e_0\) acts by integral finite translations
+on the chain. The extra factor in its norm is included in
+\(A_0\). We have \(A_0+G_0\le b^3/4\) for large \(x\).
+
+\begin{proposition}\label{prop:long}
+If an independent family of \(n\ge(1-4b^{-2})D\) rows has
+index at most \(I\) and squared covolume at most \(e^{V_0}\)
+at every \(\sigma\), then
+\begin{equation}\label{eq:lower}
+ D(H-3L)\le V_0+2I.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Complete the family by \(D-n\) elements of the spanning
+family above. Lemma~\ref{lem:gram} gives
+\[
+ \htle{(Z_{\xi_\iota}/Z_1)_\iota}{V_0+2I+Db}
+\]
+because \((D-n)(A_0+G_0)\le Db\).
+The square of this family times the family in
+\eqref{eq:chain-lower} is \(1\). The product formula in
+\S\ref{sec:gram} gives
+\(0\le 2(V_0+2I+Db)+2D(2L-H)\).
+Since \(b\le L\), this proves \eqref{eq:lower}.
+\end{proof}
+
+
+
+
+\section{The prime-sum bound}\label{sec:end}
+
+\begin{proof}[Proof of Theorem~\ref{thm:prime}]
+Choose \(\mathcal U\) by Proposition~\ref{prop:span}.
+Because \(\mathcal S_0\) spans \(\widehat{\mathcal V}\), the
+vectors \(B_s\phi\), \(s\in\mathcal U,\ \phi\in\mathcal S_0\),
+span a subspace of dimension \(n\ge(1-4b^{-2})D\).
+Select a basis \(\mathbf v\) of that subspace from these
+vectors. Proposition~\ref{prop:short} and Hadamard's inequality
+give
+\[
+ I\le 5D\log(1+b^2)B,\qquad
+ \log\Delta_\sigma(\mathbf v)\le n h,\qquad
+ h=H-m\mathcal R+L .
+\]
+Apply Proposition~\ref{prop:long}. Since \(D-n\le4b^{-2}D\)
+and \(-h\le b^2x^{99}\) by \eqref{eq:coarse-main}, it gives
+\begin{align*}
+ D(H-3L)
+ &\le nh+10D\log(1+b^2)B\\
+ &=D(H-m\mathcal R+L)+(D-n)(-h)+10D\log(1+b^2)B\\
+ &\le D(H-m\mathcal R+L)+4Dx^{99}+10D\log(1+b^2)B .
+\end{align*}
+After cancellation of \(DH\), we have
+\[
+ m\mathcal R\le 4L+4x^{99}+10\log(1+b^2)B\ll L .
+\]
+The constant is absolute for sufficiently large \(x\),
+since \(a\ge xb\) and \(\log(1+b^2)\ll\log b\).
+Divide by \(maS\) in \eqref{eq:two-weights} and use
+\(f=\varphi(q)T\) and \(T/S\le\log b\). We obtain
+\[
+ R_{q,d}(x)\ll_q \frac{(\log b)^5}{m}
+                 +|R_{q,d}(y)|+(\log b)|R_{1,d}(y)|.
+\]
+At the distant cutoff \(y\), the fixed-modulus prime number
+theorem in \eqref{eq:pnt-tail} gives
+\[
+ |R_{q,d}(y)|+(\log b)|R_{1,d}(y)|\ll_{q,d,\delta}x^{-2}.
+\]
+Indeed \(\log y=x^{\delta/6}\), so a sufficiently high
+logarithmic power in that estimate suffices. Also
+\((\log b)^5/m\le x^{-1/2+5\delta}\).
+Taking \(0<\delta<\min(1/100,\epsilon/5)\) proves
+\eqref{eq:prime} for large \(x\).
+The constant can be increased on a bounded interval
+because \(R_{q,d}\) is continuous.
+\end{proof}
+
+The implication in \S\ref{sec:analytic} now proves
+Theorem~\ref{thm:grh}, including the character of conductor
+one.
+
+\begin{thebibliography}{9}
+
+\bibitem{alpoge}
+L.~Alp\"oge,
+Announcement of a proof of the Riemann hypothesis,
+20 November 2026, \url{https://alpo.ge/remark.pdf}.
+
+\bibitem{chojecki}
+P.~Chojecki,
+\emph{Covolumes and Dirichlet zeros},
+preprint, 26 November 2026,
+\url{https://www.ulam.ai/research/grh_complete.pdf}.
+
+\bibitem{green}
+J.~A. Green,
+The characters of the finite general linear groups,
+\emph{Trans. Amer. Math. Soc.} \textbf{80} (1955), 402--447.
+
+\bibitem{mv}
+H.~L. Montgomery and R.~C. Vaughan,
+\emph{Multiplicative Number Theory I. Classical Theory},
+Cambridge Studies in Advanced Mathematics, vol.~97,
+Cambridge University Press, Cambridge, 2007.
+
+\end{thebibliography}
+\end{document}
